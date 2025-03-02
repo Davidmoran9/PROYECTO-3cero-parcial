@@ -1,0 +1,61 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <!-- Usar un CDN para el font Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- CDN de Font Awesome para los iconos -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <link href="~/css/login.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <h1>Iniciar Sesión</h1>
+    </header>
+
+    <div class="container">
+        <h2 class="card-title">Acceso al Sistema</h2>
+
+        <!-- Icono en la parte superior del formulario -->
+        <div class="icono-login">
+            <i class="fas fa-user-circle"></i>
+        </div>
+
+        <form method="post">
+            <div class="mb-3">
+                <label for="Correo" class="form-label">Correo</label>
+                <input type="email" class="form-control" id="Correo" name="correo" placeholder="Ingresa tu correo" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="Contrasena" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="Contrasena" name="contrasena" placeholder="Ingresa tu contraseña" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Iniciar sesión <i class="fas fa-sign-in-alt"></i></button>
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger mt-3">
+                    @TempData["Error"]
+                </div>
+            }
+        </form>
+
+        <a href="#">¿Olvidaste tu contraseña?</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Sistema Hospitalario</p>
+    </footer>
+</body>
+</html>

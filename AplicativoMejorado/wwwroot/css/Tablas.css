@@ -1,0 +1,182 @@
+﻿/* --- Estilos personalizados para DataTables --- */
+/* Estilo para el contenedor de la tabla */
+#divTable {
+    background: #e3f2fd; /* Azul claro tipo hospital */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor de DataTables */
+.dataTables_wrapper {
+    margin-top: 15px;
+    padding: 20px;
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+/* --- Estilos de la tabla --- */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    text-align: left;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+    /* Encabezado de la tabla */
+    .table thead {
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        color: white;
+    }
+
+        .table thead th {
+            padding: 14px;
+            text-transform: uppercase;
+            font-weight: bold;
+            border-bottom: 4px solid #004080;
+            text-align: center;
+        }
+
+    /* Cuerpo de la tabla */
+    .table tbody tr {
+        transition: all 0.3s ease-in-out;
+        border-bottom: 1px solid #ddd;
+    }
+
+        .table tbody tr:nth-child(odd) {
+            background-color: #f0f8ff;
+        }
+
+        .table tbody tr:hover {
+            background-color: #cce5ff !important;
+            transform: scale(1.02);
+            transition: all 0.2s ease-in-out;
+        }
+
+    /* Celdas */
+    .table tbody td {
+        padding: 14px;
+        color: #333;
+        text-align: center;
+    }
+
+/* --- Personalización de DataTables --- */
+
+/* Paginación */
+.dataTables_paginate {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+    .dataTables_paginate .paginate_button {
+        padding: 8px 15px;
+        border: 1px solid #ddd;
+        margin: 2px;
+        border-radius: 5px;
+        cursor: pointer;
+        background: #f8f9fa;
+        transition: all 0.3s ease;
+        font-weight: bold;
+    }
+
+        .dataTables_paginate .paginate_button:hover {
+            background: #007bff;
+            color: white !important;
+            border-color: #007bff;
+            transform: scale(1.1);
+        }
+
+        .dataTables_paginate .paginate_button.current {
+            background: #0056b3;
+            color: white !important;
+            border: 1px solid #0056b3;
+            font-weight: bold;
+        }
+
+/* Input de búsqueda */
+.dataTables_filter input {
+    border: 2px solid #007bff;
+    padding: 8px;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+    .dataTables_filter input:focus {
+        border-color: #0056b3;
+        box-shadow: 0px 0px 10px rgba(0, 91, 187, 0.5);
+    }
+
+/* Select de registros por página */
+.dataTables_length select {
+    border: 2px solid #007bff;
+    padding: 6px;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+    .dataTables_length select:focus {
+        border-color: #0056b3;
+        box-shadow: 0px 0px 10px rgba(0, 91, 187, 0.5);
+    }
+
+/* Texto de información */
+.dataTables_info {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* --- Diseño Responsive --- */
+@media (max-width: 768px) {
+    .dataTables_wrapper {
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .table thead {
+        display: none;
+    }
+
+    .table, .table tbody, .table tr, .table td {
+        display: block;
+        width: 100%;
+    }
+
+        .table tr {
+            margin-bottom: 10px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .table td {
+            text-align: right;
+            padding-left: 50%;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+        }
+
+            .table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: #007bff;
+            }
+
+}

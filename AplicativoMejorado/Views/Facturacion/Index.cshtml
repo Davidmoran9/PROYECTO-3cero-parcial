@@ -1,0 +1,86 @@
+﻿@{
+    ViewData["Title"] = "Facturación";
+}
+
+<h1 class="mb-4 text-center">Facturación</h1>
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar factura..." onkeyup="BuscarFacturacion()">
+    </div>
+</div>
+<div class="text-end mb-3">
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalFacturacion">
+        <i class="bi bi-plus-circle"></i> Nueva Factura
+    </button>
+</div>
+
+<div id="divTable" class="mt-4"></div>
+
+<div class="modal fade" id="modalFacturacion" tabindex="-1" aria-labelledby="modalFacturacionLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalFacturacionLabel">Gestionar Factura</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="frmGuardarFacturacion" method="post" class="row g-3">
+                    <input type="hidden" name="id" id="id">
+
+                    <div class="col-md-12">
+                        <label for="pacienteId" class="form-label">ID Paciente</label>
+                        <input type="text" class="form-control" name="pacienteId" id="pacienteId" placeholder="ID del paciente">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="monto" class="form-label">Monto</label>
+                        <input type="number" class="form-control" name="monto" id="monto" placeholder="Monto de la factura">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="metodoPago" class="form-label">Método de Pago</label>
+                        <select class="form-control" name="metodoPago" id="metodoPago">
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Tarjeta">Tarjeta</option>
+                            <option value="Transferencia">Transferencia</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="fechaPago" class="form-label">Fecha de Pago</label>
+                        <input type="date" class="form-control" name="fechaPago" id="fechaPago">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="GuardarFacturacion()">
+                    <i class="bi bi-floppy"></i> Guardar
+                </button>
+                <button type="button" class="btn btn-warning" onclick="GuardarCambiosFacturacion()">
+                    <i class="bi bi-pencil-square"></i> Modificar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<link href="~/css/tablas.css" rel="stylesheet" />
+<script src="~/js/generic.js"></script>
+<script src="~/js/facturacion.js"></script>
+
+<script>
+    function BuscarFacturacion() {
+        let filtro = document.getElementById("txtBuscar").value.toLowerCase();
+        let filas = document.querySelectorAll("#divTable table tbody tr");
+
+        filas.forEach(fila => {
+            let texto = fila.textContent.toLowerCase();
+            fila.style.display = texto.includes(filtro) ? "" : "none";
+        });
+    }
+</script>
+
+

@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Política de Privacidad";
+}
+
+<div class="privacy-container">
+    <h1 class="text-center fade-in">@ViewData["Title"]</h1>
+
+    <p class="privacy-intro slide-up">
+        En PrimeraAppNetCore, nos comprometemos a proteger la privacidad de nuestros usuarios.
+        A continuación, detallamos cómo recopilamos, usamos y protegemos su información.
+    </p>
+
+    <div class="privacy-section slide-up">
+        <h4>1. Recopilación de Información</h4>
+        <p>Recopilamos datos personales como nombre, correo electrónico y número de contacto cuando se registra en nuestro sistema.</p>
+    </div>
+
+    <div class="privacy-section slide-up">
+        <h4>2. Uso de la Información</h4>
+        <p>Utilizamos la información para mejorar la experiencia del usuario, gestionar citas médicas y brindar soporte técnico.</p>
+    </div>
+
+    <div class="privacy-section slide-up">
+        <h4>3. Protección de Datos</h4>
+        <p>Implementamos medidas de seguridad para proteger su información contra accesos no autorizados.</p>
+    </div>
+
+    <div class="privacy-section slide-up">
+        <h4>4. Derechos del Usuario</h4>
+        <p>Usted tiene derecho a acceder, modificar o eliminar sus datos en cualquier momento.</p>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="@Url.Action("Index", "Home")" class="btn btn-primary zoom-in">Volver al Inicio</a>
+    </div>
+</div>
+
+<link href="~/css/navbar.css" rel="stylesheet" />

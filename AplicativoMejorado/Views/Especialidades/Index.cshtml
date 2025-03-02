@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Especialidades";
+}
+
+
+<h1 class="mb-4 text-center">Especialidades</h1>
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar especialidad..." onkeyup="BuscarEspecialidad()">
+    </div>
+</div>
+
+<div class="text-end mb-3">
+    <button class="btn btn-success" onclick="abrirModal(true)">
+        <i class="bi bi-plus-circle"></i> Nueva Especialidad
+    </button>
+</div>
+
+<div id="divTable" class="mt-4"></div>
+
+<div class="modal fade" id="modalEspecialidad" tabindex="-1" aria-labelledby="modalEspecialidadLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEspecialidadLabel">Gestionar Especialidad</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="frmGuardarEspecialidad" method="post" class="row g-3">
+                    <input type="hidden" name="id" id="id">
+
+                    <div class="col-md-12">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre de la especialidad">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="GuardarEspecialidad()">
+                    <i class="bi bi-floppy"></i> Guardar
+                </button>
+                <button type="button" class="btn btn-warning" onclick="GuardarCambiosEspecialidad()">
+                    <i class="bi bi-pencil-square"></i> Modificar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<link href="~/css/tablas.css" rel="stylesheet" />
+<script src="~/js/generic.js"></script>
+<script src="~/js/especialidades.js"></script>
+
+<script>
+    function BuscarEspecialidad() {
+        let filtro = document.getElementById("txtBuscar").value.toLowerCase();
+        let filas = document.querySelectorAll("#divTable table tbody tr");
+
+        filas.forEach(fila => {
+            let texto = fila.textContent.toLowerCase();
+            fila.style.display = texto.includes(filtro) ? "" : "none";
+        });
+    }
+</script>

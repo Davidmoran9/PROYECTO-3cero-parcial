@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="home-container text-center">
+    <!-- Logo (Usando un CDN) -->
+    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Logo de la aplicación" class="home-logo">
+
+    <!-- Título -->
+    <h1 class="display-4">Bienvenido al Sistema de Gestión Hospitalaria</h1>
+
+    <!-- Descripción breve -->
+    <p class="home-description">
+        Un sistema hospitalario eficiente y moderno para la gestión de pacientes, médicos y citas médicas.
+    </p>
+
+    <!-- Botones de acceso rápido -->
+    <div class="home-buttons">
+        <a href="@Url.Action("Index", "Especialidades")" class="btn btn-primary">Ver Especialidades</a>
+        <a href="@Url.Action("Index", "Citas")" class="btn btn-secondary">Agendar Cita</a>
+        <a href="@Url.Action("Index", "Medicos")" class="btn btn-success">Nuestros Médicos</a>
+    </div>
+</div>

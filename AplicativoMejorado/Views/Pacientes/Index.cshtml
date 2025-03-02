@@ -1,0 +1,90 @@
+﻿@{
+    ViewData["Title"] = "Pacientes";
+}
+
+<h1 class="mb-4 text-center">Pacientes</h1>
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar paciente..." onkeyup="BuscarPaciente()">
+    </div>
+</div>
+
+<div class="text-end mb-3">
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalPaciente">
+        <i class="bi bi-plus-circle"></i> Nuevo Paciente
+    </button>
+</div>
+
+<div id="divTable" class="mt-4"></div>
+
+<div class="modal fade" id="modalPaciente" tabindex="-1" aria-labelledby="modalPacienteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPacienteLabel">Gestionar Paciente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="frmGuardarPaciente" method="post" class="row g-3">
+                    <input type="hidden" name="id" id="id">
+
+                    <div class="col-md-12">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre del paciente">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido del paciente">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                        <input type="date" class="form-control" name="fechaNacimiento" id="fechaNacimiento">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="telefono" class="form-label">Teléfono</label>
+                        <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Teléfono del paciente">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Correo del paciente">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="direccion" class="form-label">Dirección</label>
+                        <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Dirección del paciente">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="GuardarPaciente()">
+                    <i class="bi bi-floppy"></i> Guardar
+                </button>
+                <button type="button" class="btn btn-warning" onclick="GuardarCambiosPaciente()">
+                    <i class="bi bi-pencil-square"></i> Modificar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="~/css/tablas.css" rel="stylesheet" />
+<script src="~/js/generic.js"></script>
+<script src="~/js/pacientes.js"></script>
+
+<script>
+    function BuscarPaciente() {
+        let filtro = document.getElementById("txtBuscar").value.toLowerCase();
+        let filas = document.querySelectorAll("#divTable table tbody tr");
+
+        filas.forEach(fila => {
+            let texto = fila.textContent.toLowerCase();
+            fila.style.display = texto.includes(filtro) ? "" : "none";
+        });
+    }
+</script>

@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AplicativoMejorado</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/AplicativoMejorado.styles.css" asp-append-version="true" />
+
+    <!-- Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.3/dist/sweetalert2.min.css" rel="stylesheet" />
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css">
+
+    <!-- Tu CSS personalizado -->
+    <link href="~/css/tablas.css" rel="stylesheet" />
+
+</head>
+<body>
+    @{
+        var rol = Context.Session.GetString("Rol");
+    }
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MiPrimeraAplicacionMVC</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse show" id="navbarNav">
+                    <!-- Agregar clase "show" para mantener expandido el menú -->
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+
+                        <!-- Mostrar Citas solo si el usuario es Admin -->
+                        @if (!string.IsNullOrEmpty(rol) && rol == "Admin")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Citas" asp-action="Index">Citas</a>
+                            </li>
+                        }
+
+                        <!-- Mostrar Medicos solo si el usuario es Admin -->
+                        @if (!string.IsNullOrEmpty(rol) && rol == "Admin")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Medicos" asp-action="Index">Medicos</a>
+                            </li>
+                        }
+
+                        <!-- Mostrar Especialidades solo si el usuario es Admin -->
+                        @if (!string.IsNullOrEmpty(rol) && rol == "Admin")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Especialidades" asp-action="Index">Especialidades</a>
+                            </li>
+                        }
+
+                        <!-- Mostrar Pacientes solo si el usuario es Admin o Medico -->
+                        @if (!string.IsNullOrEmpty(rol) && (rol == "Admin" || rol == "Medico"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Pacientes" asp-action="Index">Pacientes</a>
+                            </li>
+                        }
+
+                        <!-- Mostrar Tratamientos solo si el usuario es Admin o Medico -->
+                        @if (!string.IsNullOrEmpty(rol) && (rol == "Admin" || rol == "Medico"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Tratamientos" asp-action="Index">Tratamientos</a>
+                            </li>
+                        }
+
+                        <!-- Mostrar Facturación solo si el usuario es Admin -->
+                        @if (!string.IsNullOrEmpty(rol) && rol == "Admin")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Facturacion" asp-action="Index">Facturacion</a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">Cerrar sesión</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <input type="hidden" id="hdfOculto" value="@Url.Content("~")" />
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - AplicativoMejorado - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.3/dist/sweetalert2.all.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+
+    <!-- Scripts de la Aplicación -->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Script para mantener la visibilidad del menú -->
+    <script>
+        $(document).ready(function () {
+            // El menú debe permanecer expandido por defecto
+            $('#navbarNav').addClass('show');
+
+            // Marcar la pestaña activa según la URL
+            var url = window.location.href; // Obtiene la URL actual
+            $('#navbarNav a').each(function () {
+                if (this.href === url) {
+                    $(this).addClass('active'); // Marca la pestaña activa
+                }
+            });
+
+            // Desactivar el comportamiento de colapso del navbar
+            $(".navbar-toggler").click(function () {
+                $(".navbar-collapse").collapse("toggle");
+            });
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

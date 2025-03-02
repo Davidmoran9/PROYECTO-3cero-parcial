@@ -1,0 +1,84 @@
+﻿@{
+    ViewData["Title"] = "Citas";
+}
+
+
+<h1 class="mb-4 text-center">Citas</h1>
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar cita..." onkeyup="BuscarCita()">
+    </div>
+</div>
+<div class="text-end mb-3">
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCita">
+        <i class="bi bi-plus-circle"></i> Nueva Cita
+    </button>
+</div>
+
+<div id="divTable" class="mt-4"></div>
+
+<div class="modal fade" id="modalCita" tabindex="-1" aria-labelledby="modalCitaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCitaLabel">Gestionar Cita</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="frmGuardarCita" method="post" class="row g-3">
+                    <input type="hidden" name="id" id="id">
+
+                    <div class="col-md-12">
+                        <label for="pacienteId" class="form-label">Paciente</label>
+                        <input type="text" class="form-control" name="pacienteId" id="pacienteId" placeholder="ID del paciente">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="medicoId" class="form-label">Médico</label>
+                        <input type="text" class="form-control" name="medicoId" id="medicoId" placeholder="ID del médico">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="fechaHora" class="form-label">Fecha y Hora</label>
+                        <input type="datetime-local" class="form-control" name="fechaHora" id="fechaHora">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="estado" class="form-label">Estado</label>
+                        <select class="form-control" name="estado" id="estado">
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Confirmada">Confirmada</option>
+                            <option value="Cancelada">Cancelada</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="GuardarCita()">
+                    <i class="bi bi-floppy"></i> Guardar
+                </button>
+                <button type="button" class="btn btn-warning" onclick="GuardarCambiosCita()">
+                    <i class="bi bi-pencil-square"></i> Modificar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="~/css/tablas.css" rel="stylesheet" />
+<script src="~/js/generic.js"></script>
+<script src="~/js/citas.js"></script>
+
+<script>
+    function BuscarCita() {
+        let filtro = document.getElementById("txtBuscar").value.toLowerCase();
+        let filas = document.querySelectorAll("#divTable table tbody tr");
+
+        filas.forEach(fila => {
+            let texto = fila.textContent.toLowerCase();
+            fila.style.display = texto.includes(filtro) ? "" : "none";
+        });
+    }
+</script>

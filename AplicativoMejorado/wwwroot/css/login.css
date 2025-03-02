@@ -1,0 +1,183 @@
+﻿/* 🌟 Fondo con gradiente profesional */
+body {
+    background: linear-gradient(135deg, #005f73, #0a9396, #94d2bd);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+/* 📌 Estilo para el header */
+header {
+    width: 100%;
+    background-color: #005f73;
+    padding: 20px 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    z-index: 10;
+}
+
+    header h1 {
+        color: #ffffff;
+        font-size: 36px;
+        font-weight: 600;
+        margin: 0;
+    }
+/* 🟢 Icono circular en la parte superior del formulario */
+.icono-login {
+    margin-bottom: 20px; /* Espacio entre el icono y el formulario */
+    background-color: #0077B6;
+    color: #fff;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    .icono-login i {
+        font-size: 40px;
+    }
+
+/* 📌 Contenedor principal del formulario */
+.container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #ffffff;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    animation: fadeIn 0.5s ease-in-out;
+    margin-top: 100px; /* Para que no se superponga al header */
+}
+
+/* 🎨 Animación de aparición */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h2.card-title {
+    color: #0077B6;
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* 🟦 Estilo de los campos del formulario */
+.mb-3 {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-top: 5px;
+    transition: border-color 0.3s ease;
+}
+
+    .form-control:focus {
+        border-color: #0077B6;
+        outline: none;
+    }
+
+    .form-control::placeholder {
+        color: #0077B6;
+        font-style: italic;
+    }
+
+/* 🟦 Estilo del botón */
+.btn-primary {
+    background-color: #0077B6;
+    border-color: #0077B6;
+    border-radius: 6px;
+    padding: 14px;
+    font-size: 16px;
+    width: 100%;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    color: #ffffff;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .btn-primary i {
+        margin-left: 10px;
+    }
+
+    .btn-primary:hover {
+        background-color: #005F73;
+        border-color: #005F73;
+        transform: scale(1.03);
+    }
+
+    .btn-primary:active {
+        transform: scale(0.97);
+    }
+
+/* 🔗 Enlace de recuperación de contraseña */
+a {
+    color: #005f73;
+    font-size: 14px;
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    transition: color 0.3s;
+}
+
+    a:hover {
+        text-decoration: underline;
+        color: #003f5c;
+    }
+
+/* 📱 Adaptación para móviles */
+@media (max-width: 576px) {
+    .container {
+        width: 85%;
+        padding: 25px;
+    }
+}
+
+/* 🟠 Estilos para el footer */
+footer {
+    width: 100%;
+    background-color: #003f5c;
+    color: white;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+}
+
+    footer p {
+        margin: 0;
+        font-size: 14px;
+    }

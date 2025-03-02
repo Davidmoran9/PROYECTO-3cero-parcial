@@ -1,0 +1,77 @@
+﻿@media screen and (min-width: 992px) {
+    /* Animación de hover en enlaces */
+    @keyframes hoverEffect {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(5px);
+        }
+    }
+
+    /* Ajustes de la barra de navegación lateral */
+    .navbar {
+        width: 25%;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+        background-color: #343a40; /* Color oscuro */
+        box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+
+        /* Asegurar que los elementos dentro de la navbar también se alinean bien */
+        .navbar .container-fluid,
+        .navbar-expand-lg .navbar-collapse,
+        .navbar-expand-lg .navbar-nav {
+            flex-direction: column;
+            width: 100%;
+        }
+
+    /* Estilo del logo o marca */
+    .navbar-brand {
+        margin-left: 0.5rem;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        transition: color 0.3s ease-in-out;
+    }
+
+        /* Efecto al pasar el mouse sobre el logo */
+        .navbar-brand:hover {
+            color: #17a2b8;
+        }
+
+    /* Estilo de los enlaces */
+    .navbar .navbar-nav .nav-link {
+        color: white !important;
+        font-size: 1.1em;
+        padding: 0.5rem 1rem;
+        transition: all 0.3s ease-in-out;
+        border-radius: 5px;
+    }
+
+        /* Efecto de hover en enlaces */
+        .navbar .navbar-nav .nav-link:hover {
+            background-color: #007bff;
+            color: #ffffff !important;
+            animation: hoverEffect 0.2s ease-in-out;
+        }
+
+    /* Ajuste del contenido principal */
+    .container {
+        margin-left: 26%;
+        width: 70%;
+        transition: margin-left 0.5s ease-in-out;
+    }
+
+        /* Efecto al hacer scroll */
+        .container:hover {
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+}
