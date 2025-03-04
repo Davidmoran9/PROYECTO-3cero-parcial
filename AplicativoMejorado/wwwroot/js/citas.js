@@ -15,7 +15,11 @@ async function listarCitas() {
 }
 
 function GuardarCita() {
-    let forma = document.getElementById("frmGuardarCita");
+    let forma = document.getElementById("frmAgregarCita");
+    if (!forma.checkValidity()) {
+        forma.reportValidity();
+        return;
+    }
     let frm = new FormData(forma);
 
     fetchPost("Citas/GuardarCita", "text", frm, function (res) {
@@ -75,7 +79,11 @@ function Editar(id) {
 }
 
 function GuardarCambiosCita() {
-    let forma = document.getElementById("frmGuardarCita");
+    let forma = document.getElementById("frmEditarCita");
+    if (!forma.checkValidity()) {
+        forma.reportValidity();
+        return;
+    }
     let frm = new FormData(forma);
 
     fetchPost("Citas/GuardarCambiosCita", "text", frm, function (res) {
@@ -89,7 +97,7 @@ function GuardarCambiosCita() {
     });
 }
 function abrirModal() {
-    let modalEl = document.getElementById("modalCita");
+    let modalEl = document.getElementById("modalEditarCita");
     if (!modalEl) {
         console.error("Error: No se encontró el modal con id 'modalCita'.");
         return;
@@ -99,7 +107,7 @@ function abrirModal() {
 }
 
 function cerrarModal() {
-    let modalEl = document.getElementById("modalCita");
+    let modalEl = document.getElementById("modalEditarCita");
     let modal = bootstrap.Modal.getInstance(modalEl);
     if (modal) {
         modal.hide();

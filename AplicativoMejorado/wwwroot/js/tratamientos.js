@@ -15,7 +15,11 @@ async function listarTratamientos() {
 }
 
 function GuardarTratamiento() {
-    let forma = document.getElementById("frmGuardarTratamiento");
+    let forma = document.getElementById("frmAgregarTratamiento");
+    if (!forma.checkValidity()) {
+        forma.reportValidity();
+        return;
+    }
     let frm = new FormData(forma);
 
     fetchPost("Tratamientos/GuardarTratamiento", "text", frm, function (res) {
@@ -79,7 +83,11 @@ function Editar(id) {
 }
 
 function GuardarCambiosTratamiento() {
-    let forma = document.getElementById("frmGuardarTratamiento");
+    let forma = document.getElementById("frmEditarTratamiento");
+    if (!forma.checkValidity()) {
+        forma.reportValidity();
+        return;
+    }
     let frm = new FormData(forma);
 
     fetchPost("Tratamientos/GuardarCambiosTratamiento", "text", frm, function (res) {
@@ -94,7 +102,7 @@ function GuardarCambiosTratamiento() {
 }
 
 function abrirModal() {
-    let modalEl = document.getElementById("modalTratamiento");
+    let modalEl = document.getElementById("modalEditarTratamiento");
     if (!modalEl) {
         console.error("Error: No se encontró el modal con id 'modalTratamiento'.");
         return;
@@ -104,7 +112,7 @@ function abrirModal() {
 }
 
 function cerrarModal() {
-    let modalEl = document.getElementById("modalTratamiento");
+    let modalEl = document.getElementById("modalEditarTratamiento");
     let modal = bootstrap.Modal.getInstance(modalEl);
     if (modal) {
         modal.hide();

@@ -15,7 +15,11 @@ async function listarFacturacion() {
 }
 
 function GuardarFacturacion() {
-    let forma = document.getElementById("frmGuardarFacturacion");
+    let forma = document.getElementById("frmAgregarFacturacion");
+    if (!forma.checkValidity()) {
+        forma.reportValidity();
+        return;
+    }
     let frm = new FormData(forma);
 
     fetchPost("Facturacion/GuardarFacturacion", "text", frm, function (res) {
@@ -86,7 +90,13 @@ function Editar(id) {
 }
 
 function GuardarCambiosFacturacion() {
-    let forma = document.getElementById("frmGuardarFacturacion");
+    let forma = document.getElementById("frmEditarFacturacion");
+
+    if (!forma.checkValidity()) {
+        forma.reportValidity();
+        return;
+    }
+
     let frm = new FormData(forma);
 
     fetchPost("Facturacion/GuardarCambiosFacturacion", "text", frm, function (res) {
@@ -101,7 +111,7 @@ function GuardarCambiosFacturacion() {
 }
 
 function abrirModal() {
-    let modalEl = document.getElementById("modalFacturacion");
+    let modalEl = document.getElementById("modalEditarFacturacion");
     if (!modalEl) {
         console.error("Error: No se encontró el modal con id 'modalFacturacion'.");
         return;
@@ -111,7 +121,7 @@ function abrirModal() {
 }
 
 function cerrarModal() {
-    let modalEl = document.getElementById("modalFacturacion");
+    let modalEl = document.getElementById("modalEditarFacturacion");
     let modal = bootstrap.Modal.getInstance(modalEl);
     if (modal) {
         modal.hide();

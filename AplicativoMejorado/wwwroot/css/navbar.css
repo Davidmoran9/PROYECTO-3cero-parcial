@@ -12,7 +12,7 @@
 
     /* Ajustes de la barra de navegación lateral */
     .navbar {
-        width: 25%;
+        width: 20%;
         height: 100vh;
         position: fixed;
         top: 0;
@@ -25,6 +25,22 @@
         box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.2);
     }
 
+    .navbar-collapse {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navbar-nav {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Distribuye uniformemente las opciones */
+        width: 100%;
+        height: 100%;
+    }
+
         /* Asegurar que los elementos dentro de la navbar también se alinean bien */
         .navbar .container-fluid,
         .navbar-expand-lg .navbar-collapse,
@@ -33,6 +49,23 @@
             width: 100%;
         }
 
+    .navbar-nav .nav-item {
+        display: flex;
+        align-items: center; /* Centrado vertical */
+        height: 100%; /* Asegura que ocupe el espacio */
+    }
+
+    .navbar-nav .nav-link {
+        display: block;
+        width: 100%;
+        text-align: left;
+        color: white !important;
+        font-size: 1.1em;
+        padding: 1rem;
+        transition: all 0.3s ease-in-out;
+        border-radius: 0;
+    }
+
     /* Estilo del logo o marca */
     .navbar-brand {
         margin-left: 0.5rem;
@@ -40,6 +73,8 @@
         font-size: 1.5rem;
         font-weight: bold;
         transition: color 0.3s ease-in-out;
+        white-space: normal;
+        max-width: 250px;
     }
 
         /* Efecto al pasar el mouse sobre el logo */
@@ -65,8 +100,8 @@
 
     /* Ajuste del contenido principal */
     .container {
-        margin-left: 26%;
-        width: 70%;
+        margin-left: 22%;
+        width: 75%;
         transition: margin-left 0.5s ease-in-out;
     }
 

@@ -4,64 +4,102 @@
 
 <h1 class="mb-4 text-center">Tratamientos</h1>
 
-<div class="row mb-3">
+@* <div class="row mb-3">
     <div class="col-md-6">
         <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar tratamiento..." onkeyup="BuscarTratamiento()">
     </div>
-</div>
+</div> *@
 <div class="text-end mb-3">
-    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalTratamiento">
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregarTratamiento">
         <i class="bi bi-plus-circle"></i> Nuevo Tratamiento
     </button>
 </div>
 
 <div id="divTable" class="mt-4"></div>
 
-<div class="modal fade" id="modalTratamiento" tabindex="-1" aria-labelledby="modalTratamientoLabel" aria-hidden="true">
+<div class="modal fade" id="modalEditarTratamiento" tabindex="-1" aria-labelledby="modalEditarTratamientoLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTratamientoLabel">Gestionar Tratamiento</h5>
+                <h5 class="modal-title" id="modalEditarTratamientoLabel">Editar Tratamiento</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="frmGuardarTratamiento" method="post" class="row g-3">
+                <form id="frmEditarTratamiento" method="post" class="row g-3">
                     <input type="hidden" name="id" id="id">
 
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <label for="pacienteId" class="form-label">ID Paciente</label>
-                        <input type="text" class="form-control" name="pacienteId" id="pacienteId" placeholder="ID del paciente">
+                        <input type="number" class="form-control" name="pacienteId" id="pacienteId" placeholder="ID del paciente. Ej: 1" min="1" required>
                     </div>
+
+					<div class="col-md-6">
+						<label for="fecha" class="form-label">Fecha</label>
+                        <input type="date" class="form-control" name="fecha" id="fecha" max="2026-01-01" min="2025-01-01" required>
+					</div>
 
                     <div class="col-md-12">
                         <label for="descripcion" class="form-label">Descripción</label>
-                        <textarea class="form-control" name="descripcion" id="descripcion" rows="3" placeholder="Descripción del tratamiento"></textarea>
-                    </div>
-
-                    <div class="col-md-12">
-                        <label for="fecha" class="form-label">Fecha</label>
-                        <input type="date" class="form-control" name="fecha" id="fecha">
+                        <textarea class="form-control" name="descripcion" id="descripcion" rows="3" placeholder="Descripción del tratamiento" minlength="2" required></textarea>
                     </div>
 
                     <div class="col-md-12">
                         <label for="costo" class="form-label">Costo</label>
-                        <input type="number" class="form-control" name="costo" id="costo" placeholder="Costo del tratamiento">
+                        <input type="text" class="form-control" name="costo" id="costo" placeholder="##,##" pattern="^\d{1,8}(,\d{1,2})?$" required>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" onclick="GuardarTratamiento()">
-                    <i class="bi bi-floppy"></i> Guardar
-                </button>
                 <button type="button" class="btn btn-warning" onclick="GuardarCambiosTratamiento()">
-                    <i class="bi bi-pencil-square"></i> Modificar
+                    <i class="bi bi-pencil-square"></i> Editar
                 </button>
             </div>
         </div>
     </div>
 </div>
 
+<div class="modal fade" id="modalAgregarTratamiento" tabindex="-1" aria-labelledby="modalAgregarTratamientoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAgregarTratamientoLabel">Agregar Tratamiento</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="frmAgregarTratamiento" method="post" class="row g-3">
+                    <input type="hidden" name="id" id="id">
+
+                    <div class="col-md-6">
+                        <label for="pacienteId" class="form-label">ID Paciente</label>
+                        <input type="number" class="form-control" name="pacienteId" id="pacienteId" placeholder="ID del paciente. Ej: 1" min="1" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="fecha" class="form-label">Fecha</label>
+                        <input type="date" class="form-control" name="fecha" id="fecha" max="2026-01-01" min="2025-01-01" required>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <textarea class="form-control" name="descripcion" id="descripcion" rows="3" placeholder="Descripción del tratamiento" minlength="2" required></textarea>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="costo" class="form-label">Costo</label>
+                        <input type="text" class="form-control" name="costo" id="costo" placeholder="##,##" pattern="^\d{1,8}(,\d{1,2})?$" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success" onclick="GuardarTratamiento()">
+                    <i class="bi bi-floppy"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <link href="~/css/tablas.css" rel="stylesheet" />
 <script src="~/js/generic.js"></script>
 <script src="~/js/tratamientos.js"></script>

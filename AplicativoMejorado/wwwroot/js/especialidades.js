@@ -15,7 +15,13 @@ async function listarEspecialidades() {
 }
 
 function GuardarEspecialidad() {
-    let forma = document.getElementById("frmGuardarEspecialidad");
+    let forma = document.getElementById("frmAgregarEspecialidad");
+
+    if (!forma.checkValidity()) {
+        forma.reportValidity();
+        return;
+    }
+
     let frm = new FormData(forma);
 
     fetchPost("Especialidades/GuardarEspecialidad", "text", frm, function (res) {
@@ -76,7 +82,13 @@ function Editar(id) {
     });
 }
 function GuardarEspecialidad() {
-    let forma = document.getElementById("frmGuardarEspecialidad");
+    let forma = document.getElementById("frmAgregarEspecialidad");
+
+    if (!forma.checkValidity()) {
+        forma.reportValidity();
+        return;
+    }
+
     let frm = new FormData(forma);
 
     fetchPost("Especialidades/GuardarEspecialidad", "text", frm, function (res) {
@@ -92,7 +104,13 @@ function GuardarEspecialidad() {
 }
 
 function GuardarCambiosEspecialidad() {
-    let forma = document.getElementById("frmGuardarEspecialidad");
+    let forma = document.getElementById("frmEditarEspecialidad");
+
+    if (!forma.checkValidity()) {
+        forma.reportValidity();
+        return;
+    }
+
     let frm = new FormData(forma);
 
     fetchPost("Especialidades/GuardarCambiosEspecialidad", "text", frm, function (res) {
@@ -107,24 +125,18 @@ function GuardarCambiosEspecialidad() {
     });
 }
 
-function abrirModal(nuevo = true) {
-    let modalEl = document.getElementById("modalEspecialidad");
+function abrirModal() {
+    let modalEl = document.getElementById("modalEditarEspecialidad");
     if (!modalEl) {
-        console.error("Error: No se encontró el modal con id 'modalEspecialidad'.");
+        console.error("Error: No se encontró el modal con id 'modalMedico'.");
         return;
     }
     let modal = new bootstrap.Modal(modalEl);
-
-    if (nuevo) {
-        document.getElementById("id").value = "";
-        document.getElementById("nombre").value = "";
-    }
-
     modal.show();
 }
 
 function cerrarModal() {
-    let modalEl = document.getElementById("modalEspecialidad");
+    let modalEl = document.getElementById("modalEditarEspecialidad");
     let modal = bootstrap.Modal.getInstance(modalEl);
     if (modal) {
         modal.hide();

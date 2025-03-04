@@ -1,4 +1,7 @@
 ﻿window.onload = function () {
+    let fechaInput = document.getElementById('fechaNacimiento');
+    let hoy = new Date().toISOString().split('T')[0];
+    fechaInput.setAttribute('max', hoy);
     listarPacientes();
 };
 
@@ -15,7 +18,13 @@ async function listarPacientes() {
 }
 
 function GuardarPaciente() {
-    let forma = document.getElementById("frmGuardarPaciente");
+    let forma = document.getElementById("frmAgregarPaciente");
+
+    if (!forma.checkValidity()) {
+        forma.reportValidity();
+        return;
+    }
+
     let frm = new FormData(forma);
 
     fetchPost("Pacientes/GuardarPaciente", "text", frm, function (res) {
@@ -74,7 +83,13 @@ function Editar(id) {
 }
 
 function GuardarCambiosPaciente() {
-    let forma = document.getElementById("frmGuardarPaciente");
+    let forma = document.getElementById("frmEditarPaciente");
+
+    if (!forma.checkValidity()) {
+        forma.reportValidity();
+        return;
+    }
+
     let frm = new FormData(forma);
 
     fetchPost("Pacientes/GuardarCambiosPaciente", "text", frm, function (res) {
@@ -89,9 +104,9 @@ function GuardarCambiosPaciente() {
 }
 
 function abrirModal() {
-    let modalEl = document.getElementById("modalPaciente");
+    let modalEl = document.getElementById("modalEditarPaciente");
     if (!modalEl) {
-        console.error("Error: No se encontró el modal con id 'modalPaciente'.");
+        console.error("Error: No se encontró el modal con id 'modalEditarPaciente'.");
         return;
     }
     let modal = new bootstrap.Modal(modalEl);
@@ -99,7 +114,7 @@ function abrirModal() {
 }
 
 function cerrarModal() {
-    let modalEl = document.getElementById("modalPaciente");
+    let modalEl = document.getElementById("modalEditarPaciente");
     let modal = bootstrap.Modal.getInstance(modalEl);
     if (modal) {
         modal.hide();

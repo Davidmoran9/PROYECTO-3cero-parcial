@@ -141,23 +141,51 @@ namespace CapaDatos
                 try
                 {
                     cn.Open();
-                    using (SqlCommand cmd = new SqlCommand("uspInsertarMedico", cn))
+                    using (SqlTransaction transaccion = cn.BeginTransaction())
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@Nombre", obj.Nombre);
-                        cmd.Parameters.AddWithValue("@Apellido", obj.Apellido);
-                        cmd.Parameters.AddWithValue("@EspecialidadId", obj.EspecialidadId);
-                        cmd.Parameters.AddWithValue("@Telefono", obj.Telefono);
-                        cmd.Parameters.AddWithValue("@Email", obj.Email);
-
-                        SqlParameter outputIdParam = new SqlParameter("@idMedico", SqlDbType.Int)
+                        try
                         {
-                            Direction = ParameterDirection.Output
-                        };
-                        cmd.Parameters.Add(outputIdParam);
-                        cmd.ExecuteNonQuery();
+                            // Guardar el médico
+                            using (SqlCommand cmd = new SqlCommand("uspInsertarMedico", cn, transaccion))
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Parameters.AddWithValue("@Nombre", obj.Nombre);
+                                cmd.Parameters.AddWithValue("@Apellido", obj.Apellido);
+                                cmd.Parameters.AddWithValue("@EspecialidadId", obj.EspecialidadId);
+                                cmd.Parameters.AddWithValue("@Telefono", obj.Telefono);
+                                cmd.Parameters.AddWithValue("@Email", obj.Email);
 
-                        idGenerado = Convert.ToInt32(outputIdParam.Value);
+                                SqlParameter outputIdParam = new SqlParameter("@idMedico", SqlDbType.Int)
+                                {
+                                    Direction = ParameterDirection.Output
+                                };
+                                cmd.Parameters.Add(outputIdParam);
+                                cmd.ExecuteNonQuery();
+
+                                idGenerado = Convert.ToInt32(outputIdParam.Value);
+                            }
+
+                            // Generar la contraseña (primeras 3 letras del apellido + 2521)
+                            string apellido = obj.Apellido.Length >= 3 ? obj.Apellido.Substring(0, 3) : obj.Apellido;
+                            string contrasena = apellido + "2521";
+
+                            // Guardar el usuario
+                            using (SqlCommand cmdUsuario = new SqlCommand("uspInsertarUsuario", cn, transaccion))
+                            {
+                                cmdUsuario.CommandType = CommandType.StoredProcedure;
+                                cmdUsuario.Parameters.AddWithValue("@Correo", obj.Email);
+                                cmdUsuario.Parameters.AddWithValue("@Contrasena", contrasena);
+                                cmdUsuario.Parameters.AddWithValue("@Rol", "Medico");
+                                cmdUsuario.ExecuteNonQuery();
+                            }
+
+                            transaccion.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            transaccion.Rollback();
+                            throw;
+                        }
                     }
                 }
                 catch (Exception)
@@ -168,6 +196,7 @@ namespace CapaDatos
             }
             return idGenerado;
         }
+
 
         // Editar un médico existente
         public int GuardarCambiosMedico(MedicosCLS obj)
@@ -207,12 +236,50 @@ namespace CapaDatos
                 try
                 {
                     cn.Open();
-                    using (SqlCommand cmd = new SqlCommand("uspEliminarMedico", cn))
+                    using (SqlTransaction transaccion = cn.BeginTransaction())
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@Id", id);
-                        int filasAfectadas = cmd.ExecuteNonQuery();
-                        return (filasAfectadas > 0) ? 1 : 0;
+                        try
+                        {
+                            // 1. Obtener el correo del médico
+                            string correoMedico = "";
+                            using (SqlCommand cmdCorreo = new SqlCommand("SELECT Email FROM Medicos WHERE Id = @Id", cn, transaccion))
+                            {
+                                cmdCorreo.Parameters.AddWithValue("@Id", id);
+                                var result = cmdCorreo.ExecuteScalar();
+                                if (result != null)
+                                    correoMedico = result.ToString();
+                            }
+
+                            if (string.IsNullOrEmpty(correoMedico))
+                            {
+                                transaccion.Rollback();
+                                return 0; // No existe el médico
+                            }
+
+                            // 2. Eliminar el médico
+                            using (SqlCommand cmdEliminarMedico = new SqlCommand("uspEliminarMedico", cn, transaccion))
+                            {
+                                cmdEliminarMedico.CommandType = CommandType.StoredProcedure;
+                                cmdEliminarMedico.Parameters.AddWithValue("@Id", id);
+                                cmdEliminarMedico.ExecuteNonQuery();
+                            }
+
+                            // 3. Eliminar el usuario
+                            using (SqlCommand cmdEliminarUsuario = new SqlCommand("uspEliminarUsuario", cn, transaccion))
+                            {
+                                cmdEliminarUsuario.CommandType = CommandType.StoredProcedure;
+                                cmdEliminarUsuario.Parameters.AddWithValue("@Correo", correoMedico);
+                                cmdEliminarUsuario.ExecuteNonQuery();
+                            }
+
+                            transaccion.Commit();
+                            return 1;
+                        }
+                        catch (Exception)
+                        {
+                            transaccion.Rollback();
+                            throw;
+                        }
                     }
                 }
                 catch (Exception)
@@ -221,5 +288,6 @@ namespace CapaDatos
                 }
             }
         }
+
     }
 }

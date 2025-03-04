@@ -15,7 +15,13 @@ async function listarMedicos() {
 }
 
 function GuardarMedico() {
-    let forma = document.getElementById("frmGuardarMedico");
+    let forma = document.getElementById("frmAgregarMedico");
+
+    if (!forma.checkValidity()) {
+        forma.reportValidity(); 
+        return; 
+    }
+
     let frm = new FormData(forma);
 
     fetchPost("Medicos/GuardarMedico", "text", frm, function (res) {
@@ -73,7 +79,11 @@ function Editar(id) {
 }
 
 function GuardarCambiosMedico() {
-    let forma = document.getElementById("frmGuardarMedico");
+    let forma = document.getElementById("frmEditarMedico");
+    if (!forma.checkValidity()) {
+        forma.reportValidity();
+        return;
+    }
     let frm = new FormData(forma);
 
     fetchPost("Medicos/GuardarCambiosMedico", "text", frm, function (res) {
@@ -88,7 +98,7 @@ function GuardarCambiosMedico() {
 }
 
 function abrirModal() {
-    let modalEl = document.getElementById("modalMedico");
+    let modalEl = document.getElementById("modalEditarMedico");
     if (!modalEl) {
         console.error("Error: No se encontró el modal con id 'modalMedico'.");
         return;
@@ -98,7 +108,7 @@ function abrirModal() {
 }
 
 function cerrarModal() {
-    let modalEl = document.getElementById("modalMedico");
+    let modalEl = document.getElementById("modalEditarMedico");
     let modal = bootstrap.Modal.getInstance(modalEl);
     if (modal) {
         modal.hide();

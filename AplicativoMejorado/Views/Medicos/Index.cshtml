@@ -4,64 +4,108 @@
 
 <h1 class="mb-4 text-center">Médicos</h1>
 
-<div class="row mb-3">
+@* <div class="row mb-3">
     <div class="col-md-6">
         <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar médico..." onkeyup="BuscarMedico()">
     </div>
-</div>
+</div> *@
 
 <div class="text-end mb-3">
-    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalMedico">
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregarMedico">
         <i class="bi bi-plus-circle"></i> Nuevo Médico
     </button>
 </div>
 
 <div id="divTable" class="mt-4"></div>
 
-<div class="modal fade" id="modalMedico" tabindex="-1" aria-labelledby="modalMedicoLabel" aria-hidden="true">
+<div class="modal fade" id="modalEditarMedico" tabindex="-1" aria-labelledby="modalEditarMedicoLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalMedicoLabel">Gestionar Médico</h5>
+                <h5 class="modal-title" id="modalEditarMedicoLabel">Editar Médico</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="frmGuardarMedico" method="post" class="row g-3">
+                <form id="frmEditarMedico" method="post" class="row g-3">
                     <input type="hidden" name="id" id="id">
 
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <label for="nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre del médico">
+                        <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre del médico" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" minlength="2" required>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <label for="apellido" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido del médico">
+                        <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido del médico" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" minlength="2" required>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <label for="especialidadId" class="form-label">Especialidad</label>
-                        <input type="text" class="form-control" name="especialidadId" id="especialidadId" placeholder="ID de la especialidad">
+                        <input type="number" class="form-control" name="especialidadId" id="especialidadId" placeholder="ID especialidad. Ej: 1" min="1" required>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <label for="telefono" class="form-label">Teléfono</label>
-                        <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Teléfono del médico">
+                        <input type="tel" class="form-control" name="telefono" id="telefono" placeholder="Ej: 0987654321" pattern="[0-9]+" maxlength="10" minlength="10" required>
                     </div>
 
                     <div class="col-md-12">
                         <label for="email" class="form-label">Correo Electrónico</label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Correo del médico">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Ej: doctor@hospital.com" required>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" onclick="GuardarMedico()">
-                    <i class="bi bi-floppy"></i> Guardar
-                </button>
                 <button type="button" class="btn btn-warning" onclick="GuardarCambiosMedico()">
-                    <i class="bi bi-pencil-square"></i> Modificar
+                    <i class="bi bi-pencil-square"></i> Editar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAgregarMedico" tabindex="-1" aria-labelledby="modalAgregarMedicoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAgregarMedicoLabel">Agregar Médico</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="frmAgregarMedico" method="post" class="row g-3">
+                    <input type="hidden" name="id" id="id">
+
+                    <div class="col-md-6">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre del médico" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" minlength="2" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido del médico" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" minlength="2" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="especialidadId" class="form-label">Especialidad</label>
+                        <input type="number" class="form-control" name="especialidadId" id="especialidadId" placeholder="ID especialidad. Ej: 1" min="1" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="telefono" class="form-label">Teléfono</label>
+                        <input type="tel" class="form-control" name="telefono" id="telefono" placeholder="Ej: 0987654321" pattern="[0-9]+" maxlength="10" minlength="10" required>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Ej: doctor@hospital.com" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success" onclick="GuardarMedico()">
+                    <i class="bi bi-floppy"></i> Agregar
                 </button>
             </div>
         </div>
